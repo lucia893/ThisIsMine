@@ -1,0 +1,25 @@
+{
+  "name": "lost-and-found-app",
+  "version": "1.0.0",
+  "description": "A full-stack application for reporting lost and found items",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd app/backend && npm run dev",
+    "dev:frontend": "cd app/frontend && npm start",
+    "build": "npm run build:backend && npm run build:frontend",
+    "build:backend": "cd app/backend && npm run build",
+    "build:frontend": "cd app/frontend && npm run build",
+    "install:all": "npm install && cd app/backend && npm install && cd ../frontend && npm install"
+  },
+  "keywords": [
+    "lost",
+    "found",
+    "items",
+    "community"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.0.0"
+  }
+}
