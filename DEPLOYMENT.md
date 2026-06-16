@@ -66,11 +66,13 @@ Puedes usar el archivo [render.yaml](./render.yaml) o configurarlo manualmente.
    - `S3_SECRET_ACCESS_KEY`
    - `S3_PUBLIC_BASE_URL`
 
+Nota: el build en Render necesita instalar tambien las `devDependencies`, porque TypeScript compila usando paquetes como `@types/node`, `@types/express` y `@types/pg`. Si dejas `NODE_ENV=production` y usas solo `npm install`, esas dependencias pueden omitirse y el deploy falla.
+
 ### Opcion B: configuracion manual
 
 - Root directory: `app/backend`
 - Runtime: `Node`
-- Build command: `npm install && npm run build`
+- Build command: `npm install --include=dev && npm run build`
 - Start command: `npm start`
 - Health check path: `/api/health`
 
