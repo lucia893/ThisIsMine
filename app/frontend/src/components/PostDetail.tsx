@@ -2,9 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { Post } from "../types";
 import axios from "axios";
+import { API_URL, getCategoryLabel } from "../api";
 import "./PostDetail.css";
-
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
 function PostDetail() {
   const { id } = useParams<{ id: string }>();
@@ -50,7 +49,7 @@ function PostDetail() {
       <div className="error-container">
         <p>{error || "Publicacion no encontrada"}</p>
         <Link to="/" className="back-link">
-          Volver a publicaciones
+          Volver a casos
         </Link>
       </div>
     );
@@ -59,7 +58,7 @@ function PostDetail() {
   return (
     <div className="post-detail-container">
       <Link to="/" className="back-link">
-        Volver a publicaciones
+        Volver a casos
       </Link>
 
       <div className="post-detail">
@@ -74,15 +73,15 @@ function PostDetail() {
             <div>
               <h1>{post.title}</h1>
               <span className={`badge badge-${post.category}`}>
-                {post.category === "lost" ? "Objeto perdido" : "Objeto encontrado"}
+                {getCategoryLabel(post.category)}
               </span>
             </div>
           </div>
 
           <div className="post-details-grid">
             <div className="detail-item">
-              <label>Categoria:</label>
-              <p>{post.category === "lost" ? "Perdido" : "Encontrado"}</p>
+              <label>Estado:</label>
+              <p>{getCategoryLabel(post.category)}</p>
             </div>
 
             <div className="detail-item">
@@ -92,7 +91,7 @@ function PostDetail() {
 
             {post.location && (
               <div className="detail-item">
-                <label>Ubicacion:</label>
+                <label>Zona:</label>
                 <p>{post.location}</p>
               </div>
             )}

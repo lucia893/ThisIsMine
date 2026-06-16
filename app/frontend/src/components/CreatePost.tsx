@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { API_URL, getCategoryLabel } from "../api";
 import "./CreatePost.css";
-
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
 function CreatePost() {
   const navigate = useNavigate();
@@ -50,47 +49,43 @@ function CreatePost() {
 
     try {
       const formDataToSend = new FormData();
-      formDataToSend.append("title", formData.title);
-      formDataToSend.append("description", formData.description);
+      formDataToSend.append("title", formData.title.trim());
+      formDataToSend.append("description", formData.description.trim());
       formDataToSend.append("category", formData.category);
-      formDataToSend.append("location", formData.location);
-      formDataToSend.append("contact", formData.contact);
+      formDataToSend.append("location", formData.location.trim());
+      formDataToSend.append("contact", formData.contact.trim());
       if (image) {
         formDataToSend.append("image", image);
       }
 
-      const response = await axios.post(
-        `${API_URL}/api/posts`,
-        formDataToSend,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        },
-      );
+      const response = await axios.post(`${API_URL}/api/posts`, formDataToSend);
 
       navigate(`/post/${response.data.id}`);
     } catch (err: any) {
       setError(
         err.response?.data?.error ||
+          err.message ||
           "No se pudo crear la publicacion. Intentalo de nuevo.",
       );
       setLoading(false);
+      return;
     }
+
+    setLoading(false);
   };
 
   return (
     <div className="create-post-container">
-      <h2 className="form-title">Reportar un objeto</h2>
+      <h2 className="form-title">Publicar un robo</h2>
       <p className="form-subtitle">
-        Ayuda a la comunidad reportando un objeto perdido o encontrado
+        Comparti lo que te robaron o avisa si un objeto ya fue recuperado.
       </p>
 
       {error && <div className="error-message">{error}</div>}
 
       <form onSubmit={handleSubmit} className="create-post-form">
         <div className="form-group">
-          <label htmlFor="category">Categoria *</label>
+          <label htmlFor="category">Estado *</label>
           <select
             id="category"
             name="category"
@@ -98,13 +93,13 @@ function CreatePost() {
             onChange={handleChange}
             required
           >
-            <option value="lost">Objeto perdido</option>
-            <option value="found">Objeto encontrado</option>
+            <option value="lost">{getCategoryLabel("lost")}</option>
+            <option value="found">{getCategoryLabel("found")}</option>
           </select>
         </div>
 
         <div className="form-group">
-          <label htmlFor="title">Titulo del objeto *</label>
+          <label htmlFor="title">Que te robaron *</label>
           <input
             type="text"
             id="title"
@@ -123,39 +118,39 @@ function CreatePost() {
             name="description"
             value={formData.description}
             onChange={handleChange}
-            placeholder="Describe el objeto en detalle..."
+            placeholder="Conta que paso, como era el objeto y cualquier dato que ayude..."
             rows={5}
             required
           />
         </div>
 
         <div className="form-group">
-          <label htmlFor="location">Ubicacion</label>
+          <label htmlFor="location">Zona</label>
           <input
             type="text"
             id="location"
             name="location"
             value={formData.location}
             onChange={handleChange}
-            placeholder="Donde se perdio o encontro?"
+            placeholder="Donde fue el robo o donde aparecio despues?"
           />
         </div>
 
         <div className="form-group">
-          <label htmlFor="contact">Informacion de contacto</label>
+          <label htmlFor="contact">Contacto</label>
           <input
             type="text"
             id="contact"
             name="contact"
             value={formData.contact}
             onChange={handleChange}
-            placeholder="Correo o telefono"
+            placeholder="Correo, telefono o Instagram"
           />
         </div>
 
         <div className="form-group">
-          <label htmlFor="image">Subir foto</label>
-          <div className="image-upload">
+          <label htmlFor="image">Foto</label>
+          <label htmlFor="image" className="image-upload">
             <input
               type="file"
               id="image"
@@ -165,9 +160,9 @@ function CreatePost() {
               className="file-input"
             />
             <span className="upload-text">
-              {image ? image.name : "Haz clic para subir o arrastra una imagen"}
+              {image ? image.name : "Toca aca para subir una foto"}
             </span>
-          </div>
+          </label>
           {imagePreview && (
             <div className="image-preview">
               <img src={imagePreview} alt="Vista previa" />
@@ -186,7 +181,7 @@ function CreatePost() {
         </div>
 
         <button type="submit" disabled={loading} className="submit-btn">
-          {loading ? "Publicando..." : "Publicar"}
+          {loading ? "Publicando..." : "Publicar denuncia"}
         </button>
       </form>
     </div>

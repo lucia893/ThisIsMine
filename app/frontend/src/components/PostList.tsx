@@ -2,9 +2,8 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Post } from "../types";
 import axios from "axios";
+import { API_URL, getCategoryLabel } from "../api";
 import "./PostList.css";
-
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
 function PostList() {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -30,12 +29,12 @@ function PostList() {
     filter === "all" ? posts : posts.filter((post) => post.category === filter);
 
   if (loading) {
-    return <div className="loading">Cargando publicaciones...</div>;
+    return <div className="loading">Cargando casos...</div>;
   }
 
   return (
     <div className="post-list-container">
-      <h2 className="section-title">Publicaciones de la comunidad</h2>
+      <h2 className="section-title">Robos y recuperaciones reportadas</h2>
 
       <div className="filter-buttons">
         <button
@@ -48,19 +47,19 @@ function PostList() {
           className={`filter-btn ${filter === "lost" ? "active" : ""}`}
           onClick={() => setFilter("lost")}
         >
-          Perdidos
+          Robados
         </button>
         <button
           className={`filter-btn ${filter === "found" ? "active" : ""}`}
           onClick={() => setFilter("found")}
         >
-          Encontrados
+          Recuperados
         </button>
       </div>
 
       {filteredPosts.length === 0 ? (
         <div className="no-posts">
-          <p>No hay publicaciones. Ayuda a otros reportando un objeto.</p>
+          <p>No hay casos todavia. Publica uno para que mas gente lo vea.</p>
         </div>
       ) : (
         <div className="posts-grid">
@@ -80,7 +79,7 @@ function PostList() {
                   <div className="post-header">
                     <h3>{post.title}</h3>
                     <span className={`badge badge-${post.category}`}>
-                      {post.category === "lost" ? "Perdido" : "Encontrado"}
+                      {getCategoryLabel(post.category)}
                     </span>
                   </div>
                   <p className="post-description">

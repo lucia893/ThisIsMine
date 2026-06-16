@@ -10,13 +10,13 @@ function App() {
       <div className="app">
         <header className="header">
           <div className="header-content">
-            <h1 className="logo">Objetos Perdidos</h1>
+            <h1 className="logo">Me robaron</h1>
             <nav className="nav">
               <Link to="/" className="nav-link">
-                Todas las publicaciones
+                Casos publicados
               </Link>
               <Link to="/create" className="nav-link btn-create">
-                Reportar objeto
+                Publicar robo
               </Link>
             </nav>
           </div>
@@ -32,8 +32,8 @@ function App() {
 
         <footer className="footer">
           <p>
-            &copy; 2026 Objetos Perdidos. Ayuda a las personas a recuperar sus
-            pertenencias.
+            &copy; 2026 Me robaron. Un espacio para visibilizar robos y ayudar a
+            recuperar pertenencias.
           </p>
         </footer>
       </div>

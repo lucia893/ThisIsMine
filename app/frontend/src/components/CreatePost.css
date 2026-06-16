@@ -5,6 +5,7 @@
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 102, 204, 0.1);
+  width: 100%;
 }
 
 .form-title {
@@ -72,6 +73,7 @@
 }
 
 .image-upload {
+  display: block;
   border: 2px dashed var(--primary-blue);
   border-radius: 8px;
   padding: 2rem;
@@ -134,6 +136,7 @@
   cursor: pointer;
   transition: all 0.3s ease;
   margin-top: 1rem;
+  min-height: 48px;
 }
 
 .submit-btn:hover:not(:disabled) {
@@ -167,7 +170,8 @@
 
 @media (max-width: 480px) {
   .create-post-container {
-    padding: 1rem;
+    padding: 1rem 0.9rem;
+    border-radius: 10px;
   }
 
   .form-title {
@@ -185,6 +189,7 @@
   .submit-btn,
   .remove-image-btn {
     min-height: 48px;
+    font-size: 16px;
   }
 
   .form-group textarea {

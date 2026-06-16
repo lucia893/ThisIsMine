@@ -20,7 +20,7 @@ function getOptionalNumber(name: string, fallback: number): number {
 
 function parseCorsOrigins(rawValue?: string): string[] {
   if (!rawValue) {
-    return ["http://localhost:3000"];
+    return ["*"];
   }
 
   return rawValue

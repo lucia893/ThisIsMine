@@ -19,7 +19,11 @@ app.set("trust proxy", 1);
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin || config.corsAllowedOrigins.includes(origin)) {
+      if (
+        !origin ||
+        config.corsAllowedOrigins.includes("*") ||
+        config.corsAllowedOrigins.includes(origin)
+      ) {
         callback(null, true);
         return;
       }
