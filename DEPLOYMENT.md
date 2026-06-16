@@ -17,10 +17,19 @@ Esta app quedo preparada para:
 Ejemplo:
 
 ```env
-DATABASE_URL=postgresql://USER:PASSWORD@HOST.neon.tech/DBNAME?sslmode=require
+DATABASE_URL=postgresql://neondb_owner:npg_ayEFsce7d9bB@ep-crimson-sound-adt8btav-pooler.c-2.us-east-1.aws.neon.tech/neondb?sslmode=require
 ```
 
 El backend crea la tabla `posts` automaticamente al arrancar.
+
+Para este proyecto, ya tienes estos datos:
+
+- Host directo: `ep-crimson-sound-adt8btav.c-2.us-east-1.aws.neon.tech`
+- Pooler host: `ep-crimson-sound-adt8btav-pooler.c-2.us-east-1.aws.neon.tech`
+- Database: `neondb`
+- Role: `neondb_owner`
+
+Para la app corriendo en local o en Render, usa el `pooler host`.
 
 ## 2. Cloudflare R2
 
@@ -72,7 +81,7 @@ NODE_ENV=production
 PORT=5000
 BACKEND_PUBLIC_URL=https://tu-backend.onrender.com
 CORS_ALLOWED_ORIGINS=http://localhost:3000,https://tu-front.pages.dev
-DATABASE_URL=postgresql://USER:PASSWORD@HOST.neon.tech/DBNAME?sslmode=require
+DATABASE_URL=postgresql://neondb_owner:npg_ayEFsce7d9bB@ep-crimson-sound-adt8btav-pooler.c-2.us-east-1.aws.neon.tech/neondb?sslmode=require
 S3_ENDPOINT=https://YOUR_ACCOUNT_ID.r2.cloudflarestorage.com
 S3_REGION=auto
 S3_BUCKET_NAME=lost-and-found-images

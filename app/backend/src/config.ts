@@ -37,31 +37,32 @@ function getStorageConfig() {
   const secretAccessKey = process.env.S3_SECRET_ACCESS_KEY;
   const publicBaseUrl = process.env.S3_PUBLIC_BASE_URL;
 
-  const providedValues = [
+  const requiredValues = [
     endpoint,
-    region,
     bucketName,
     accessKeyId,
     secretAccessKey,
     publicBaseUrl,
   ].filter(Boolean);
 
-  if (providedValues.length === 0) {
+  // Allow local development with no object storage configured, even if
+  // S3_REGION keeps its default placeholder value.
+  if (requiredValues.length === 0) {
     return {
       enabled: false as const,
     };
   }
 
-  if (providedValues.length !== 6) {
+  if (requiredValues.length !== 5) {
     throw new Error(
-      "S3 storage is partially configured. Set all S3_* variables or none of them.",
+      "S3 storage is partially configured. Set S3_ENDPOINT, S3_BUCKET_NAME, S3_ACCESS_KEY_ID, S3_SECRET_ACCESS_KEY, and S3_PUBLIC_BASE_URL, or leave them all empty.",
     );
   }
 
   return {
     enabled: true as const,
     endpoint: endpoint!,
-    region: region!,
+    region: region || "auto",
     bucketName: bucketName!,
     accessKeyId: accessKeyId!,
     secretAccessKey: secretAccessKey!,

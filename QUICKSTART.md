@@ -21,6 +21,13 @@ Completa:
 - `S3_*` de Cloudflare R2
 - `CORS_ALLOWED_ORIGINS`
 
+Valor actual de ejemplo para este proyecto:
+
+```env
+DATABASE_URL=postgresql://neondb_owner:npg_ayEFsce7d9bB@ep-crimson-sound-adt8btav-pooler.c-2.us-east-1.aws.neon.tech/neondb?sslmode=require
+CORS_ALLOWED_ORIGINS=http://localhost:3000
+```
+
 ### Frontend
 
 ```bash
@@ -59,7 +66,8 @@ npm run dev
   - Start command: `npm start`
 
 - Base de datos: Neon Postgres
-  - Copia su connection string en `DATABASE_URL`
+  - Usa esta connection string en `DATABASE_URL`:
+    `postgresql://neondb_owner:npg_ayEFsce7d9bB@ep-crimson-sound-adt8btav-pooler.c-2.us-east-1.aws.neon.tech/neondb?sslmode=require`
 
 - Imagenes: Cloudflare R2
   - Crea el bucket

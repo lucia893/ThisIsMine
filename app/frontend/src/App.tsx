@@ -31,7 +31,10 @@ function App() {
         </main>
 
         <footer className="footer">
-          <p>&copy; 2024 Objetos Perdidos. Ayuda a las personas a recuperar sus pertenencias.</p>
+          <p>
+            &copy; 2026 Objetos Perdidos. Ayuda a las personas a recuperar sus
+            pertenencias.
+          </p>
         </footer>
       </div>
     </Router>
